@@ -10,8 +10,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "menu.h"
 
-int main(void) {
-	puts("!!!Hello World!!!"); /* prints !!!Hello World!!! */
+int main(void)
+{
+	setbuf(stdout,NULL);
+
+	MenuOpciones();
+
 	return EXIT_SUCCESS;
 }
