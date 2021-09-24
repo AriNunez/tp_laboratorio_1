@@ -10,37 +10,38 @@
 #include "utn.h"
 #include "operacionesAritmeticas.h"
 
+/// \brief Incluye y muestra un menu interactivo con opciones para elegir.
 void MenuOpciones ()
 {
-	int primerNumero;
-	int segundoNumero;
+	float primerNumero;
+	float segundoNumero;
 	int opciones;
 
-	long resultadoSuma;
-	long resultadoResta;
+	float resultadoSuma;
+	float resultadoResta;
 	float resultadoDivision;
-	long resultadoMultiplicacion;
-	unsigned long long resultadoFactorialA;
-	unsigned long long resultadoFactorialB;
+	double resultadoMultiplicacion;
+	double resultadoFactorialA;
+	double resultadoFactorialB;
 
 	int devolucionDividir;
-	//int devolucionFactorialA;
-	//int devolucionFactorialB;
+	int flagCalcularResultados;
 
 	primerNumero = 0;
 	segundoNumero = 0;
+	flagCalcularResultados = 0;
 
 	do
 	{
 		printf("\n==========CALCULADORA==========\n");
-		printf("1. Ingresar 1er operando (A=%d)\n2. Ingresar 2do operando (B=%d)\n"
+		printf("1. Ingresar 1er operando (A=%.2f)\n2. Ingresar 2do operando (B=%.2f)\n"
 				"3. Calcular todas las operaciones\n4. Informar resultados\n5. Salir",primerNumero,segundoNumero);
 		if(utn_getInt(&opciones, "\nIngrese una opcion: ", "\n¡ERROR! ", 1, 5, 1)==0)
 		{
 			switch(opciones)
 			{
 				case 1:
-					if(utn_getIntSinLimite(&primerNumero, "\nIngrese un numero entero: ", "\n¡ERROR!", 1)==0)
+					if(utn_getFloatSinLimite(&primerNumero, "\nIngrese un numero: ", "\n¡ERROR!", 1)==0)
 					{
 						printf("\n¡INGRESO EXITOSO!\n");
 					}
@@ -48,10 +49,11 @@ void MenuOpciones ()
 					{
 						printf("\n¡ERROR EN EL INGRESO!\n");
 					}
+
 					break;
 
 				case 2:
-					if(utn_getIntSinLimite(&segundoNumero, "\nIngrese un numero entero: ", "\n¡ERROR! ", 1)==0)
+					if(utn_getFloatSinLimite(&segundoNumero, "\nIngrese un numero: ", "\n¡ERROR! ", 1)==0)
 					{
 						printf("\n¡INGRESO EXITOSO!\n");
 					}
@@ -59,75 +61,67 @@ void MenuOpciones ()
 					{
 						printf("\n¡ERROR EN EL INGRESO!\n");
 					}
+
 					break;
 
 				case 3:
-					oper_SumarInt(primerNumero, segundoNumero, &resultadoSuma);
+					oper_SumarFloat(primerNumero, segundoNumero, &resultadoSuma);
 
-					oper_RestarInt(primerNumero, segundoNumero, &resultadoResta);
+					oper_RestarFloat(primerNumero, segundoNumero, &resultadoResta);
 
-					devolucionDividir = oper_DividirInt(primerNumero, segundoNumero, &resultadoDivision);
+					devolucionDividir = oper_DividirFloat(primerNumero, segundoNumero, &resultadoDivision);
 
-					oper_MultiplicacionInt(primerNumero, segundoNumero, &resultadoMultiplicacion);
+					oper_MultiplicacionFloat(primerNumero, segundoNumero, &resultadoMultiplicacion);
 
-					//devolucionFactorialA = oper_FactorialInt(primerNumero, &resultadoFactorialA);
+					resultadoFactorialA = oper_FactorialFloat(primerNumero);
 
-					//devolucionFactorialB = oper_FactorialInt(segundoNumero, &resultadoFactorialB);
+					resultadoFactorialB = oper_FactorialFloat(segundoNumero);
 
-					resultadoFactorialA = CalcularFactorial(primerNumero);
-					resultadoFactorialB = CalcularFactorial(segundoNumero);
+					flagCalcularResultados = 1;
+
+					printf("\n¡SE CALCULARON TODAS LAS OPERACIONES!\n");
+
 					break;
 
 				case 4:
-					printf("\n==========RESULTADOS==========\n");
-					printf("\na) El resultado de %d+%d es: %li",primerNumero,segundoNumero,resultadoSuma);
-
-					printf("\nb) El resultado de %d-%d es: %li",primerNumero,segundoNumero,resultadoResta);
-
-					if(devolucionDividir == 1)
+					if(flagCalcularResultados == 1)
 					{
-						printf("\nc) El resultado de %d/%d es: %f",primerNumero,segundoNumero,resultadoDivision);
+						printf("\n==========RESULTADOS==========\n");
+						printf("a) El resultado de %.2f+%.2f es: %.2f",primerNumero,segundoNumero,resultadoSuma);
+
+						printf("\nb) El resultado de %.2f-%.2f es: %.2f",primerNumero,segundoNumero,resultadoResta);
+
+						if(devolucionDividir == 1)
+						{
+							printf("\nc) El resultado de %.2f/%.2f es: %.2f",primerNumero,segundoNumero,resultadoDivision);
+						}
+						else
+						{
+							printf("\nc) No es posible dividir por cero");
+						}
+						printf("\nd) El resultado de %.2f*%.2f es: %.2f",primerNumero,segundoNumero,resultadoMultiplicacion);
+
+						if(resultadoFactorialA > 0)
+						{
+							printf("\ne) El factorial de %.2f es: %.2f",primerNumero,resultadoFactorialA);
+						}
+						else
+						{
+							printf("\ne) No fue posible calcular el factorial de %.2f",primerNumero);
+						}
+
+						if(resultadoFactorialB > 0)
+						{
+							printf(" || El factorial de %.2f es: %.2f\n",segundoNumero,resultadoFactorialB);
+						}
+						else
+						{
+							printf(" || No fue posible calcular el factorial de %.2f\n",segundoNumero);
+						}
 					}
 					else
 					{
-						printf("\nc) No es posible dividir por cero");
-					}
-					printf("\nd) El resultado de %d*%d es: %li",primerNumero,segundoNumero,resultadoMultiplicacion);
-
-					/*if(devolucionFactorialA > 0)
-					{
-						printf("\ne) El factorial de %d es: %lu",primerNumero,resultadoFactorialA);
-					}
-					else
-					{
-						printf("\ne) No fue posible calcular el factorial de %d",primerNumero);
-					}
-
-					if(devolucionFactorialB > 0)
-					{
-						printf(" || El factorial de %d es: %lu\n",segundoNumero,resultadoFactorialB);
-					}
-					else
-					{
-						printf(" || No fue posible calcular el factorial de %d\n",segundoNumero);
-					}*/
-
-					if(resultadoFactorialA > 0)
-					{
-						printf("\ne) El factorial de %d es: %lu",primerNumero,resultadoFactorialA);
-					}
-					else
-					{
-						printf("\ne) No fue posible calcular el factorial de %d",primerNumero);
-					}
-
-					if(resultadoFactorialB > 0)
-					{
-						printf(" || El factorial de %d es: %lu\n",segundoNumero,resultadoFactorialB);
-					}
-					else
-					{
-						printf(" || No fue posible calcular el factorial de %d\n",segundoNumero);
+						printf("¡ERROR! PRIMERO SE DEBEN CALCULAR LOS RESULTADOS PARA PODER MOSTRAR\n");
 					}
 
 					break;
@@ -139,6 +133,4 @@ void MenuOpciones ()
 		}
 
 	}while(opciones != 5);
-
-
 }
