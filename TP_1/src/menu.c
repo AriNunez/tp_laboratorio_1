@@ -10,7 +10,7 @@
 #include "utn.h"
 #include "operacionesAritmeticas.h"
 
-/// \brief Incluye y muestra un menu interactivo con opciones para elegir.
+/// \brief Incluye y muestra un menu interactivo con opciones para elegir al usuario.
 void MenuOpciones ()
 {
 	float primerNumero;
@@ -44,24 +44,24 @@ void MenuOpciones ()
 					if(utn_getFloatSinLimite(&primerNumero, "\nIngrese un numero: ", "\n¡ERROR!", 1)==0)
 					{
 						printf("\n¡INGRESO EXITOSO!\n");
+						flagCalcularResultados = 0;
 					}
 					else
 					{
 						printf("\n¡ERROR EN EL INGRESO!\n");
 					}
-
 					break;
 
 				case 2:
 					if(utn_getFloatSinLimite(&segundoNumero, "\nIngrese un numero: ", "\n¡ERROR! ", 1)==0)
 					{
 						printf("\n¡INGRESO EXITOSO!\n");
+						flagCalcularResultados = 0;
 					}
 					else
 					{
 						printf("\n¡ERROR EN EL INGRESO!\n");
 					}
-
 					break;
 
 				case 3:
@@ -97,7 +97,7 @@ void MenuOpciones ()
 						}
 						else
 						{
-							printf("\nc) No es posible dividir por cero");
+							printf("\nc) ¡ERROR! No es posible dividir por cero");
 						}
 						printf("\nd) El resultado de %.2f*%.2f es: %.2f",primerNumero,segundoNumero,resultadoMultiplicacion);
 

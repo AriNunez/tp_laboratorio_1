@@ -15,7 +15,7 @@ static int myGets (char* cadena, int longitud);
 static int getFloat(float* pResultado);
 static int esNumericaConDecimal(char* cadena);
 
-//--------------------INTEGER--------------------
+//--------------------ENTEROS--------------------
 
 /// \brief Solicita un numero entero al usuario que lee por stdin, solo admite numeros enteros que se encuentren entre el minimo y maximo.
 /// \param pResultado Puntero al espacio de memoria donde se guardara el numero obtenido
@@ -104,7 +104,7 @@ static int esNumerica(char* cadena)
 	return retorno;
 }
 
-//--------------------FLOAT--------------------
+//--------------------FLOTANTES--------------------
 
 /// \brief  Solicita un numero real al usuario que lee por stdin, solo admite numeros reales que se encuentren entre el minimo y maximo.
 /// \param pResultado Puntero al espacio de memoria donde se guardara el numero obtenido.
@@ -235,7 +235,7 @@ static int esNumericaConDecimal(char* cadena)
 	return retorno;
 }
 
-//-----------------FUNCION PRINCIPAL-----------------------
+//-----------------FUNCION PRINCIPAL PARA TOMA DE DATOS-----------------------
 
 /// \brief Lee un stdin (lo que lee por consola) hasta que encuentra un '\n' o hasta que haya copiado en cadena un maximo de 'longitud - 1' caracteres.
 /// \param cadena Puntero al espacio de memoria donde se copiara la cadena obtenida.
