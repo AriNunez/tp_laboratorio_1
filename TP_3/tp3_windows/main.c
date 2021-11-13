@@ -4,7 +4,6 @@
 #include "Controller.h"
 #include "Employee.h"
 
-
 /****************************************************
     Menu:
      1. Cargar los datos de los empleados desde el archivo data.csv (modo texto).
@@ -19,18 +18,18 @@
     10. Salir.
 *****************************************************/
 
-
-
 int main()
 {
 	setbuf(stdout,NULL);
 
     int option;
     LinkedList* listaEmpleados;
+    int flagAlta;
     int flagCargaDesdeArchivo;
     int flagGuardarArchivoCSV;
     int flagGuardarArchivoBin;
 
+    flagAlta = 0;
     flagCargaDesdeArchivo = 0;
     flagGuardarArchivoCSV = 0;
     flagGuardarArchivoBin = 0;
@@ -85,30 +84,25 @@ int main()
 						break;
 
 					case 3:
-						if(flagCargaDesdeArchivo==1)
+						if(controller_addEmployee(listaEmpleados)==0)
 						{
-							if(controller_addEmployee(listaEmpleados)==0)
-							{
-								printf("\nALTA DE EMPLEADO CANCELADA\n");
-							}
-							else
-							{
-								printf("\nALTA DE EMPLEADO EXITOSA\n");
-								if(flagGuardarArchivoBin==1||flagGuardarArchivoCSV==1)
-								{
-									flagGuardarArchivoCSV=0;
-									flagGuardarArchivoBin=0;
-								}
-							}
+							printf("\nALTA DE EMPLEADO CANCELADA\n");
 						}
 						else
 						{
-							puts("\n¡ERROR! ES NECESARIO EJECUTAR LA OPCION 1 o 2 PARA PODER REALIZAR ESTA ACCION\n");
+							printf("\nALTA DE EMPLEADO EXITOSA\n");
+							flagAlta = 1;
+							if(flagGuardarArchivoBin==1||flagGuardarArchivoCSV==1)
+							{
+								flagGuardarArchivoCSV=0;
+								flagGuardarArchivoBin=0;
+							}
 						}
+
 						break;
 
 					case 4:
-						if(flagCargaDesdeArchivo==1)
+						if(flagCargaDesdeArchivo==1 || flagAlta==1)
 						{
 							if(controller_editEmployee(listaEmpleados)==0)
 							{
@@ -126,12 +120,12 @@ int main()
 						}
 						else
 						{
-							puts("\n¡ERROR! ES NECESARIO EJECUTAR LA OPCION 1 o 2 PARA PODER REALIZAR ESTA ACCION\n");
+							puts("\n¡ERROR! ES NECESARIO CARGAR UN ARCHIVO EN MODO TEXTO O BINARIO, O REALIZAR UN ALTA DE EMPLEADO PARA REALIZAR ESTA ACCION\n");
 						}
 						break;
 
 					case 5:
-						if(flagCargaDesdeArchivo==1)
+						if(flagCargaDesdeArchivo==1 || flagAlta==1)
 						{
 							if(controller_removeEmployee(listaEmpleados)==0)
 							{
@@ -149,23 +143,23 @@ int main()
 						}
 						else
 						{
-							puts("\n¡ERROR! ES NECESARIO EJECUTAR LA OPCION 1 o 2 PARA PODER REALIZAR ESTA ACCION\n");
+							puts("\n¡ERROR! ES NECESARIO CARGAR UN ARCHIVO EN MODO TEXTO O BINARIO, O REALIZAR UN ALTA DE EMPLEADO PARA REALIZAR ESTA ACCION\n");
 						}
 						break;
 
 					case 6:
-						if(flagCargaDesdeArchivo==1)
+						if(flagCargaDesdeArchivo==1 || flagAlta==1)
 						{
 							controller_ListEmployee(listaEmpleados);
 						}
 						else
 						{
-							puts("\n¡ERROR! ES NECESARIO EJECUTAR LA OPCION 1 o 2 PARA PODER REALIZAR ESTA ACCION\n");
+							puts("\n¡ERROR! ES NECESARIO CARGAR UN ARCHIVO EN MODO TEXTO O BINARIO, O REALIZAR UN ALTA DE EMPLEADO PARA REALIZAR ESTA ACCION\n");
 						}
 						break;
 
 					case 7:
-						if(flagCargaDesdeArchivo==1)
+						if(flagCargaDesdeArchivo==1 || flagAlta==1)
 						{
 							if(controller_sortEmployee(listaEmpleados)==0)
 							{
@@ -178,7 +172,7 @@ int main()
 						}
 						else
 						{
-							puts("\n¡ERROR! ES NECESARIO EJECUTAR LA OPCION 1 o 2 PARA PODER REALIZAR ESTA ACCION\n");
+							puts("\n¡ERROR! ES NECESARIO CARGAR UN ARCHIVO EN MODO TEXTO O BINARIO, O REALIZAR UN ALTA DE EMPLEADO PARA REALIZAR ESTA ACCION\n");
 						}
 						break;
 
@@ -188,17 +182,17 @@ int main()
 							ll_sort(listaEmpleados, employee_CompareById, 1);
 							if(controller_saveAsText("data.csv", listaEmpleados)==0)
 							{
-								puts("\n¡ERROR AL GUARDAR EMPLEADOS EN ARCHIVO dataAux.csv!\n");
+								puts("\n¡ERROR AL GUARDAR EMPLEADOS EN ARCHIVO data.csv!\n");
 							}
 							else
 							{
 								flagGuardarArchivoCSV = 1;
-								puts("\n¡GUARDADO DE EMPLEADOS EXITOSA EN ARCHIVO dataAux.csv!\n");
+								puts("\n¡GUARDADO DE EMPLEADOS EXITOSA EN ARCHIVO data.csv!\n");
 							}
 						}
 						else
 						{
-							puts("\n¡ERROR! ES NECESARIO EJECUTAR LA OPCION 1 o 2 PARA PODER REALIZAR ESTA ACCION\n");
+							puts("\n¡ERROR! ES NECESARIO CARGAR UN ARCHIVO EN MODO TEXTO O BINARIO PARA REALIZAR ESTA ACCION\n");
 						}
 						break;
 
@@ -208,17 +202,17 @@ int main()
 							ll_sort(listaEmpleados, employee_CompareById, 1);
 							if(controller_saveAsBinary("data.bin", listaEmpleados)==0)
 							{
-								puts("\n¡ERROR AL GUARDAR EMPLEADOS EN ARCHIVO dataAux.bin!\n");
+								puts("\n¡ERROR AL GUARDAR EMPLEADOS EN ARCHIVO data.bin!\n");
 							}
 							else
 							{
 								flagGuardarArchivoBin = 1;
-								puts("\n¡GUARDADO DE EMPLEADOS EXITOSA EN ARCHIVO dataAux.bin!\n");
+								puts("\n¡GUARDADO DE EMPLEADOS EXITOSA EN ARCHIVO data.bin!\n");
 							}
 						}
 						else
 						{
-							puts("\n¡ERROR! ES NECESARIO EJECUTAR LA OPCION 1 o 2 PARA PODER REALIZAR ESTA ACCION\n");
+							puts("\n¡ERROR! ES NECESARIO CARGAR UN ARCHIVO EN MODO TEXTO O BINARIO PARA REALIZAR ESTA ACCION\n");
 						}
 						break;
 

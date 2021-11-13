@@ -1,8 +1,17 @@
 #include "Employee.h"
 
+//****FUNCIONES ESTATICAS****
+static void employee_GenerarID(int* idAumentado);
+static void employee_BuscarUltimoID(char* id);
+static void employee_GuardarUltimoID(int id);
+
+//****FUNCIONES****
+
+/// \brief Crea un nuevo Employee en memoria de manera dinamica y lo inicializa con valores iniciales
+/// \return Employee* Retorna (NULL) en caso de no conseguir espacio en memoria o el puntero al espacio reservado
 Employee* employee_new()
 {
-	Employee* pNewEmployee;
+	Employee* pNewEmployee = NULL;
 
 	pNewEmployee = (Employee*) malloc(sizeof(Employee));
 
@@ -17,9 +26,16 @@ Employee* employee_new()
 	return pNewEmployee;
 
 }
+
+/// \brief Asigna valores a un Employee que se encuentra en memoria dinamica
+/// \param idStr char* Puntero a string
+/// \param nombreStr char* Puntero a string
+/// \param horasTrabajadasStr char* Puntero a string
+/// \param sueldoStr char* Puntero a string
+/// \return Employee* Retorna (NULL) en caso de error - en caso de exito retorna el puntero al espacio reservado con valores asignados
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr,char* sueldoStr)
 {
-	Employee* pNewEmployee;
+	Employee* pNewEmployee = NULL;
 	int id;
 	int horasTrabajadas;
 	int sueldo;
@@ -44,6 +60,8 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 	return pNewEmployee;
 }
 
+/// \brief Elimina un Employee que se encuentra en memoria dinamica
+/// \param this Employee* Puntero a empleado
 void employee_delete(Employee* this)
 {
 	if(this != NULL)
@@ -52,7 +70,9 @@ void employee_delete(Employee* this)
 	}
 }
 
-
+/// \brief Muestra los valores de un Employee
+/// \param this Employee* Puntero a empleado
+/// \return int Retorna (0) en caso de error - (1) en caso de exito
 int employee_MostrarUno(Employee* this)
 {
 	int retorno;
@@ -77,7 +97,10 @@ int employee_MostrarUno(Employee* this)
 	return retorno;
 }
 
-
+/// \brief Asigna un valor en el Employee recibido por paramentro
+/// \param this Employee* Puntero a empleado
+/// \param id int
+/// \return int Retorna (0) en caso de error - (1) en caso de exito
 int employee_setId(Employee* this,int id)
 {
 	int retorno;
@@ -92,6 +115,10 @@ int employee_setId(Employee* this,int id)
 	return retorno;
 }
 
+/// \brief Toma un valor del Employee recibido por parametro y lo devuelve
+/// \param this Employee* Puntero a empleado
+/// \param id int* Puntero a int donde se guardara el valor buscado
+/// \return int Retorna (0) en caso de error - (1) en caso de exito
 int employee_getId(Employee* this,int* id)
 {
 	int retorno;
@@ -106,8 +133,10 @@ int employee_getId(Employee* this,int* id)
 	return retorno;
 }
 
-
-
+/// \brief Asigna un valor en el Employee recibido por paramentro
+/// \param this Employee* Puntero a empleado
+/// \param nombre char* Puntero a string
+/// \return int Retorna (0) en caso de error - (1) en caso de exito
 int employee_setNombre(Employee* this,char* nombre)
 {
 	int retorno;
@@ -121,6 +150,11 @@ int employee_setNombre(Employee* this,char* nombre)
 	}
 	return retorno;
 }
+
+/// \brief Toma un valor del Employee recibido por parametro y lo devuelve
+/// \param this Employee* Puntero a empleado
+/// \param nombre char* Puntero a string donde se guardara el valor buscado
+/// \return int Retorna (0) en caso de error - (1) en caso de exito
 int employee_getNombre(Employee* this,char* nombre)
 {
 	int retorno;
@@ -135,8 +169,10 @@ int employee_getNombre(Employee* this,char* nombre)
 	return retorno;
 }
 
-
-
+/// \brief Asigna un valor en el Employee recibido por paramentro
+/// \param this Employee* Puntero a empleado
+/// \param id int
+/// \return int Retorna (0) en caso de error - (1) en caso de exito
 int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
 {
 	int retorno;
@@ -151,6 +187,10 @@ int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
 	return retorno;
 }
 
+/// \brief Toma un valor del Employee recibido por parametro y lo devuelve
+/// \param this Employee* Puntero a empleado
+/// \param id int* Puntero a int donde se guardara el valor buscado
+/// \return int Retorna (0) en caso de error - (1) en caso de exito
 int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
 {
 	int retorno;
@@ -165,8 +205,10 @@ int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
 	return retorno;
 }
 
-
-
+/// \brief Asigna un valor en el Employee recibido por paramentro
+/// \param this Employee* Puntero a empleado
+/// \param id int
+/// \return int Retorna (0) en caso de error - (1) en caso de exito
 int employee_setSueldo(Employee* this,int sueldo)
 {
 	int retorno;
@@ -180,6 +222,11 @@ int employee_setSueldo(Employee* this,int sueldo)
 	}
 	return retorno;
 }
+
+/// \brief Toma un valor del Employee recibido por parametro y lo devuelve
+/// \param this Employee* Puntero a empleado
+/// \param id int* Puntero a int donde se guardara el valor buscado
+/// \return int Retorna (0) en caso de error - (1) en caso de exito
 int employee_getSueldo(Employee* this,int* sueldo)
 {
 	int retorno;
@@ -194,7 +241,10 @@ int employee_getSueldo(Employee* this,int* sueldo)
 	return retorno;
 }
 
-
+/// \brief Compara dos elementos recibidos por parametro
+/// \param pFirstEmployee void* Puntero al primer elemento a comparar
+/// \param pSecondEmployee void* Puntero al segundo elemento a comparar
+/// \return int Retorna (0) en caso de que sean iguales - (1) en caso de que el primero sea mayor - (-1) en caso de que el segundo sea mayor
 int employee_CompareById(void* pFirstEmployee,void* pSecondEmployee)
 {
 	int retorno;
@@ -227,6 +277,10 @@ int employee_CompareById(void* pFirstEmployee,void* pSecondEmployee)
 	return retorno;
 }
 
+/// \brief Compara dos elementos recibidos por parametro
+/// \param pFirstEmployee void* Puntero al primer elemento a comparar
+/// \param pSecondEmployee void* Puntero al segundo elemento a comparar
+/// \return int Retorna (0) en caso de que sean iguales - (>=1) en caso de que el primero sea mayor - (<=-1) en caso de que el segundo sea mayor
 int employee_CompareByName(void* pFirstEmployee,void* pSecondEmployee)
 {
 	int retorno;
@@ -249,6 +303,10 @@ int employee_CompareByName(void* pFirstEmployee,void* pSecondEmployee)
 	return retorno;
 }
 
+/// \brief Compara dos elementos recibidos por parametro
+/// \param pFirstEmployee void* Puntero al primer elemento a comparar
+/// \param pSecondEmployee void* Puntero al segundo elemento a comparar
+/// \return int Retorna (0) en caso de que sean iguales - (1) en caso de que el primero sea mayor - (-1) en caso de que el segundo sea mayor
 int employee_CompareByHorasTrabajadas(void* pFirstEmployee,void* pSecondEmployee)
 {
 	int retorno;
@@ -282,6 +340,10 @@ int employee_CompareByHorasTrabajadas(void* pFirstEmployee,void* pSecondEmployee
 	return retorno;
 }
 
+/// \brief Compara dos elementos recibidos por parametro
+/// \param pFirstEmployee void* Puntero al primer elemento a comparar
+/// \param pSecondEmployee void* Puntero al segundo elemento a comparar
+/// \return int Retorna (0) en caso de que sean iguales - (1) en caso de que el primero sea mayor - (-1) en caso de que el segundo sea mayor
 int employee_CompareBySueldo(void* pFirstEmployee,void* pSecondEmployee)
 {
 	int retorno;
@@ -315,6 +377,9 @@ int employee_CompareBySueldo(void* pFirstEmployee,void* pSecondEmployee)
 	return retorno;
 }
 
+/// \brief Realiza el alta de un Employee con espacio reservado en memoria dinamica
+/// \param pNewEmployee Employee* Puntero a empleado
+/// \return int Retorna (0) en caso de error - (1) en caso de exito
 int employee_Alta(Employee* pNewEmployee)
 {
 	 int retorno;
@@ -336,7 +401,9 @@ int employee_Alta(Employee* pNewEmployee)
 	return retorno;
 }
 
-
+/// \brief Realiza la carga de datos para un Employee con espacio reservado en memoria dinamica
+/// \param pNewEmployee Employee* Puntero a empleado
+/// \return int Retorna (0) en caso de error - (1) en caso de exito
 int employee_CargarDatos(Employee* pNewEmployee)
 {
 	int retorno;
@@ -365,7 +432,11 @@ int employee_CargarDatos(Employee* pNewEmployee)
 	return retorno;
 }
 
-int employee_PedirNombre(char nombre[],int tam)
+/// \brief Pide al usuario un nombre
+/// \param nombre char* Puntero a string donde se guardara el nombre pedido
+/// \param tam int Representa el largo de la cadena
+/// \return int Retorna (0) en caso de error - (1) en caso de exito
+int employee_PedirNombre(char* nombre,int tam)
 {
 	int retorno;
 	char auxNombre[tam];
@@ -384,6 +455,9 @@ int employee_PedirNombre(char nombre[],int tam)
 	return retorno;
 }
 
+/// \brief Pide al usuario la cantidad de horas trabajadas
+/// \param horasTrabajadas int* Puntero a int donde se guardara el dato pedido
+/// \return int Retorna (0) en caso de error - (1) en caso de exito
 int employee_PedirHorasTrabajadas(int* horasTrabajadas)
 {
 	int retorno;
@@ -403,6 +477,9 @@ int employee_PedirHorasTrabajadas(int* horasTrabajadas)
 	return retorno;
 }
 
+/// \brief Pide al usuario que ingrese el sueldo
+/// \param sueldo int* Puntero a int donde se guardara el dato pedido
+/// \return int Retorna (0) en caso de error - (1) en caso de exito
 int employee_PedirSueldo(int* sueldo)
 {
 	int retorno;
@@ -422,9 +499,12 @@ int employee_PedirSueldo(int* sueldo)
 	return retorno;
 }
 
+/// \brief Clona en un Employee auxiliar los datos del Employee que recibe por paramentro
+/// \param pEmployee Employee* Puntero a empleado
+/// \return Employee* Retorna (NULL) en caso de error - en caso de exito retorna el puntero al empleado clon
 Employee* employee_ClonarEmployee(Employee* pEmployee)
 {
-	Employee* pAuxEmployee;
+	Employee* pAuxEmployee = NULL;
 	int id;
 	char nombre[128];
 	int horasTrabajadas;
@@ -452,8 +532,9 @@ Employee* employee_ClonarEmployee(Employee* pEmployee)
 	return pAuxEmployee;
 }
 
-
-void employee_GenerarID(int* idAumentado)
+/// \brief Genera un ID autoincremental
+/// \param idAumentado int* Puntero a int donde se guardara el ID autoincrementado
+static void employee_GenerarID(int* idAumentado)
 {
 	char id[128];
 	int idAux;
@@ -464,7 +545,9 @@ void employee_GenerarID(int* idAumentado)
 	*idAumentado = idAux;
 }
 
-void employee_BuscarUltimoID(char* id)
+/// \brief Lee un archivo y busca cual es el ultimo ID cargado
+/// \param id int* Puntero a char donde se guardara el ID leido desde el archivo
+static void employee_BuscarUltimoID(char* id)
 {
 	char idAux[128];
 	FILE* pArchivo;
@@ -480,7 +563,9 @@ void employee_BuscarUltimoID(char* id)
 	}
 }
 
-void employee_GuardarUltimoID(int id)
+/// \brief Escribe en un archivo el ultimo ID cargado
+/// \param id int Entero que representa el ultimo ID cargado
+static void employee_GuardarUltimoID(int id)
 {
 	int idAux;
 	FILE* pArchivo;

@@ -38,13 +38,10 @@ int employee_CompareBySueldo(void* pFirstEmployee,void* pSecondEmployee);
 int employee_Alta(Employee* pNewEmployee);
 int employee_CargarDatos(Employee* pNewEmployee);
 
-int employee_PedirNombre(char nombre[],int tam);
+int employee_PedirNombre(char* nombre,int tam);
 int employee_PedirHorasTrabajadas(int* horasTrabajadas);
 int employee_PedirSueldo(int* sueldo);
 
 Employee* employee_ClonarEmployee(Employee* pEmployee);
 
-void employee_GenerarID(int* idAumentado);
-void employee_BuscarUltimoID(char* id);
-void employee_GuardarUltimoID(int id);
 #endif // employee_H_INCLUDED

@@ -3,9 +3,9 @@
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path char* Puntero al nombre del archivo
+ * \param pArrayListEmployee LinkedList* Puntero a la lista
+ * \return int Retorna (0) en caso de error - (1) en caso de exito
  *
  */
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
@@ -32,9 +32,9 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo binario).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path char* Puntero al nombre del archivo
+ * \param pArrayListEmployee LinkedList* Puntero a la lista
+ * \return int Retorna (0) en caso de error - (1) en caso de exito
  *
  */
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
@@ -60,9 +60,8 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 
 /** \brief Alta de empleados
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee LinkedList* Puntero a la lista
+ * \return int Retorna (0) en caso de error - (1) en caso de exito
  *
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee)
@@ -94,9 +93,8 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 
 /** \brief Modificar datos de empleado
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee LinkedList* Puntero a la lista
+ * \return int Retorna (0) en caso de error - (1) en caso de exito
  *
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
@@ -120,6 +118,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 		{
 			pEmployee = ll_get(pArrayListEmployee, index);
 			pAuxEmployee = employee_ClonarEmployee(pEmployee);
+
 			do
 			{
 				puts("\n\t>>¿QUE DESEA MODIFICAR?");
@@ -177,9 +176,8 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 
 /** \brief Baja de empleado
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee LinkedList* Puntero a la lista
+ * \return int Retorna (0) en caso de error - (1) en caso de exito
  *
  */
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
@@ -208,9 +206,8 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 
 /** \brief Listar empleados
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee LinkedList* Puntero a la lista
+ * \return int Retorna (0) en caso de error - (1) en caso de exito
  *
  */
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
@@ -244,9 +241,8 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 
 /** \brief Ordenar empleados
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee LinkedList* Puntero a la lista
+ * \return int Retorna (0) en caso de error - (1) en caso de exito
  *
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
@@ -300,9 +296,9 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path char* Puntero al nombre del archivo
+ * \param pArrayListEmployee LinkedList* Puntero a la lista
+ * \return int Retorna (0) en caso de error - (1) en caso de exito
  *
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
@@ -360,9 +356,9 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path char* Puntero al nombre del archivo
+ * \param pArrayListEmployee LinkedList* Puntero a la lista
+ * \return int Retorna (0) en caso de error - (1) en caso de exito
  *
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
@@ -403,11 +399,11 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/// \fn int controller_ElegirEmpleadoEnLista(LinkedList*, int*)
-/// \brief
-/// \param pArrayListEmployee
-/// \param index
-/// \return
+/// \brief Muestra la lista, pide seleccionar un elemento por ID de la lista y verifica que el mismo se encuentre en la lista
+///
+/// \param pArrayListEmployee LinkedList* Puntero a la lista
+/// \param index int* Puntero a la direccion donde se guardara el index del elemento seleccionado
+/// \return Retorna (0) en caso de error- (1) en caso de exito
 int controller_ElegirEmpleadoEnLista(LinkedList* pArrayListEmployee,int* index)
 {
 	int retorno;
